@@ -62,11 +62,21 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="glass-card rounded-2xl p-8 w-full max-w-md">
+    <div className="auth-wrapper">
+      <div className="gradient-bg" />
+      <div className="dust-layer">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <circle cx="20" cy="20" r="1" fill="white" />
+          <circle cx="50" cy="40" r="1.5" fill="white" />
+          <circle cx="80" cy="70" r="1" fill="white" />
+          <circle cx="70" cy="20" r="1" fill="white" />
+          <circle cx="30" cy="80" r="1.2" fill="white" />
+        </svg>
+      </div>
+      <h1 className="brand">INSPIRI</h1>
+      <div className="auth-card">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold cosmic-glow mb-2">Inspirt Labs</h1>
-          <p className="text-gray-400">
+          <p className="subtitle">
             {isSignIn ? "Welcome back" : "Create your account"}
           </p>
         </div>
@@ -78,7 +88,7 @@ export default function Home() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+              className="auth-input"
               required
             />
           </div>
@@ -89,7 +99,7 @@ export default function Home() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+              className="auth-input"
               required
             />
           </div>
@@ -101,23 +111,19 @@ export default function Home() {
                 placeholder="Access Code"
                 value={accessCode}
                 onChange={(e) => setAccessCode(e.target.value)}
-                className="w-full p-4 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+                className="auth-input"
                 required
               />
-              <p className="text-xs text-gray-500 mt-2">Enter your invitation access code</p>
+              <p className="hint-text">Enter your invitation access code</p>
             </div>
           )}
 
-          {error && (
-            <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-200 text-sm">
-              {error}
-            </div>
-          )}
+          {error && <div className="error-box">{error}</div>}
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full primary-button px-6 py-4 rounded-lg font-semibold text-white disabled:opacity-50"
+            className="submit-btn"
           >
             {isLoading ? "Please wait..." : isSignIn ? "Sign In" : "Create Account"}
           </button>
@@ -134,7 +140,7 @@ export default function Home() {
 
         <button
           onClick={() => alert('Google Sign-In requires API keys. Please provide your Google OAuth credentials.')}
-          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white hover:bg-gray-100 text-gray-900 font-semibold rounded-lg transition-colors"
+          className="google-btn"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -148,12 +154,128 @@ export default function Home() {
         <div className="text-center mt-6">
           <button
             onClick={() => setIsSignIn(!isSignIn)}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="toggle-btn"
           >
             {isSignIn ? "Need an account? Sign up" : "Already have an account? Sign in"}
           </button>
         </div>
       </div>
     </div>
+    <style>{`
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=JetBrains+Mono:wght@800&display=swap');
+      body {
+        margin: 0;
+        font-family: 'Inter', 'JetBrains Mono', monospace;
+        color: rgba(255,255,255,0.8);
+      }
+      .auth-wrapper {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .gradient-bg {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(120deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+        background-size: 200% 200%;
+        animation: gradientMove 30s ease infinite;
+        z-index: -2;
+      }
+      @keyframes gradientMove {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+      }
+      .dust-layer {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.15;
+        animation: dustDrift 40s linear infinite;
+        z-index: -1;
+      }
+      @keyframes dustDrift {
+        from {transform: translate3d(0,0,0);}
+        to {transform: translate3d(-200px,-200px,0);}
+      }
+      .brand {
+        position: absolute;
+        top: 5vh;
+        width: 100%;
+        text-align: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 72px;
+        font-weight: 800;
+        color: #000;
+        text-shadow: 0 0 2px #fff;
+      }
+      .auth-card {
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(14px);
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.2);
+        max-width: 420px;
+        width: 100%;
+        padding: 2rem;
+      }
+      .subtitle {
+        font-weight: 300;
+      }
+      .auth-input {
+        width: 100%;
+        padding: 1rem;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(255,255,255,0.4);
+        color: #fff;
+        outline: none;
+      }
+      .auth-input:focus {
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
+      }
+      .submit-btn, .google-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(to bottom right, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+        background-size: 200% 200%;
+        transition: background-position 0.5s;
+      }
+      .submit-btn:hover, .google-btn:hover {
+        background-position: 0% 0%;
+        box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      }
+      .error-box {
+        background: rgba(255,0,0,0.2);
+        border: 1px solid rgba(255,0,0,0.5);
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        color: #ffdddd;
+        font-size: 0.875rem;
+      }
+      .hint-text {
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.5);
+        margin-top: 0.5rem;
+      }
+      .toggle-btn {
+        color: rgba(255,255,255,0.5);
+        background: none;
+        border: none;
+        font-size: 0.875rem;
+      }
+      .toggle-btn:hover {
+        color: #fff;
+      }
+    `}</style>
   );
 }
