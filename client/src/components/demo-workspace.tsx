@@ -541,12 +541,12 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
 
           <div className="relative premium-card rounded-xl p-8">
             {!isGenerating && !generationComplete && (
-              <div className="max-w-4xl mx-auto space-y-8">
+              <div className="max-w-4xl mx-auto space-y-6">
                 {/* Configuration Panel */}
                 <div className="space-y-6">
                   {/* Name Input */}
                   <div className="glass-card rounded-xl p-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-3">
+                    <h3 className="gradient-text text-xl font-semibold mb-4 flex items-center gap-3">
                       <svg
                         className="w-5 h-5 text-purple-400"
                         fill="currentColor"
@@ -572,7 +572,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
 
                   {/* Audio Upload */}
                   <div className="glass-card rounded-xl p-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-3">
+                    <h3 className="gradient-text text-xl font-semibold mb-4 flex items-center gap-3">
                       <svg
                         className="w-5 h-5 text-cyan-400"
                         fill="currentColor"
@@ -729,7 +729,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
 
                   {/* Personality Description */}
                   <div className="glass-card rounded-xl p-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-3">
+                    <h3 className="gradient-text text-xl font-semibold mb-4 flex items-center gap-3">
                       <svg
                         className="w-5 h-5 text-pink-400"
                         fill="currentColor"
@@ -769,7 +769,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
 
                   {/* Personality Traits */}
                   <div className="glass-card rounded-xl p-6">
-                    <h3 className="text-xl font-semibold mb-6 flex items-center gap-3">
+                    <h3 className="gradient-text text-xl font-semibold mb-6 flex items-center gap-3">
                       <svg
                         className="w-5 h-5 text-green-400"
                         fill="none"
@@ -837,12 +837,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                     <button
                       onClick={generateDemo}
                       disabled={!isFormValid()}
-                      className="w-full max-w-md mx-auto primary-button px-16 py-6 rounded-2xl font-bold text-xl text-white disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 transform hover:scale-105 transition-all duration-300 shadow-2xl"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #8b5cf6, #f472b6, #06b6d4)",
-                        boxShadow: "0 20px 40px rgba(139, 92, 246, 0.3)",
-                      }}
+                      className="w-full h-20 text-2xl font-bold primary-button rounded-full disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1 transition-all"
                     >
                       <svg
                         className="w-6 h-6"
@@ -865,20 +860,8 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
             {/* Generation Progress */}
             {isGenerating && (
               <div className="text-center space-y-6 py-12">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto pulse-glow">
-                  <svg
-                    className="w-10 h-10 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-semibold cosmic-glow">
+                <div className="galactic-spinner mx-auto" />
+                <h3 className="gradient-text text-3xl font-semibold">
                   Generating Your AI Companion
                 </h3>
                 <p className="text-xl text-gray-300">
@@ -964,8 +947,10 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                   </div>
                 ))}
 
-                <div className="absolute top-4 right-4 text-sm text-white/80 z-30">
-                  {messagesRemaining} / 5
+                <div className="absolute top-4 right-4 z-30">
+                  <span className="gradient-text px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-sm">
+                    {messagesRemaining} / 5
+                  </span>
                 </div>
 
                 {/* Messages */}
@@ -1036,7 +1021,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                 {/* Input Area */}
                 <div className="absolute bottom-0 left-0 right-0 z-20 p-6">
                   <div className="max-w-4xl mx-auto">
-                    <div className="bg-black/20 backdrop-blur-xl rounded-3xl border border-white/10 p-4">
+                    <div className="glass-bar rounded-3xl p-4">
                       <div className="flex items-end gap-4">
                         <div className="flex-1">
                           <textarea
@@ -1084,7 +1069,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-6">
               <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col">
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="gradient-text text-xl font-semibold mb-2">
                   Starter – First Light
                 </h3>
                 <p className="text-3xl font-bold mb-4">
@@ -1105,11 +1090,11 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                   Keep It Simple
                 </button>
               </div>
-              <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col relative">
+              <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col relative ring-4 ring-purple-500/50 animate-pulse">
                 <span className="absolute -top-3 right-3 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded shadow">
                   Most Loved
                 </span>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="gradient-text text-xl font-semibold mb-2">
                   Pro – Forever Within
                 </h3>
                 <p className="text-3xl font-bold mb-4">
@@ -1133,7 +1118,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                 </button>
               </div>
               <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col">
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="gradient-text text-xl font-semibold mb-2">
                   Elite – Legacy Vault
                 </h3>
                 <p className="text-3xl font-bold mb-4">
@@ -1178,10 +1163,15 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
           transition:
             transform 0.3s,
             box-shadow 0.3s;
+          background: rgba(255,255,255,0.06);
+          backdrop-filter: blur(14px);
+          border: 2px solid transparent;
+          border-image: linear-gradient(45deg,#ff006e,#8338ec,#3a86ff,#06ffa5,#ffbe0b) 1;
+          border-radius: 1rem;
         }
         .plan-card:hover {
           transform: translateY(-6px);
-          box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 12px 30px -8px rgba(0,0,0,0.4);
         }
         .primary-button {
           background: linear-gradient(90deg, #6366f1, #8b5cf6);

@@ -38,33 +38,47 @@
 
 @layer components {
   .deep-space-bg {
-    background: radial-gradient(circle at center, #0f172a, #020617);
+    position: relative;
+    background: linear-gradient(-45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    background-size: 400% 400%;
+    animation: cloud 30s ease infinite;
+    overflow: hidden;
+  }
+  .deep-space-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.15;
+    animation: dust 40s linear infinite;
+    pointer-events: none;
   }
   
   .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
-  
+
   .premium-card {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
   .primary-button {
-    background: linear-gradient(135deg, #8b5cf6, #f472b6);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-    transition: all 0.3s ease;
+    background: linear-gradient(to bottom right, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    background-size: 200% 200%;
+    border: none;
+    transition: background-position 0.5s;
     position: relative;
     overflow: hidden;
   }
-  
+
   .primary-button:hover {
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
-    transform: translateY(-2px);
+    background-position: 200% 0%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
   
   .primary-button::before {
@@ -74,7 +88,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: left 0.5s;
   }
   
@@ -91,6 +105,32 @@
   .secondary-button:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
+  }
+
+  .glass-bar {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .galactic-spinner {
+    width: 80px;
+    height: 80px;
+    border-radius: 9999px;
+    background: conic-gradient(#ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #ff006e);
+    animation: spin 10s linear infinite;
+  }
+
+  .gradient-text {
+    background: linear-gradient(to bottom right, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .font-headline {
+    font-family: 'JetBrains Mono', 'Inter', sans-serif;
+    font-weight: 800;
+    color: #000;
   }
   
   .cosmic-glow {
@@ -175,6 +215,11 @@
     max-width: 70%;
     margin-left: auto;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s;
+  }
+
+  .chat-bubble-user:hover {
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0,0,0,0.3);
   }
 
   .chat-bubble-ai {
@@ -185,6 +230,11 @@
     padding: 16px 20px;
     max-width: 70%;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s;
+  }
+
+  .chat-bubble-ai:hover {
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0,0,0,0.3);
   }
 
   .floating-photo {
@@ -203,7 +253,8 @@
     -webkit-appearance: none;
     appearance: none;
     height: 6px;
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to right, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    background-size: 200% 200%;
     border-radius: 3px;
     outline: none;
   }
@@ -213,20 +264,20 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #8b5cf6, #f472b6);
+    background: #ffffff;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   }
   
   .trait-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #8b5cf6, #f472b6);
+    background: #ffffff;
     border-radius: 50%;
     cursor: pointer;
     border: none;
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   }
   
   .pulse-glow {
@@ -246,6 +297,27 @@
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+
+  @keyframes cloud {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes dust {
+    from { transform: translate3d(0,0,0); }
+    to { transform: translate3d(-50px,-50px,0); }
+  }
+
+  @keyframes progressMorph {
+    0%, 100% { border-radius: 8px; }
+    50% { border-radius: 20px; }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   @keyframes float {
@@ -279,22 +351,27 @@
     border: 2px dashed rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
   }
-  
+
   .upload-zone:hover {
-    border-color: rgba(139, 92, 246, 0.6);
-    background: rgba(139, 92, 246, 0.1);
+    border-color: transparent;
+    background: linear-gradient(to bottom right, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    background-size: 200% 200%;
+    animation: cloud 10s ease infinite;
   }
-  
+
   .upload-zone.drag-over {
-    border-color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.2);
+    border-color: transparent;
+    background: linear-gradient(to bottom right, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    background-size: 200% 200%;
   }
   
   .progress-bar {
-    background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+    background: linear-gradient(90deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+    background-size: 200% 200%;
     height: 4px;
-    border-radius: 2px;
-    transition: width 0.3s ease;
+    border-radius: 8px;
+    transition: width 0.3s ease, border-radius 0.3s ease;
+    animation: progressMorph 3s ease-in-out infinite;
   }
   
   .memory-card {

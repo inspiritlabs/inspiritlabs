@@ -62,11 +62,13 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="glass-card rounded-2xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 relative">
+      <h1 className="font-headline text-[72px] absolute -top-16 text-black drop-shadow-[0_0_2px_white]">
+        INSPIRI
+      </h1>
+      <div className="glass-card rounded-[32px] p-8 w-full max-w-[420px]">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold cosmic-glow mb-2">Inspirt Labs</h1>
-          <p className="text-gray-400">
+          <p className="text-gray-100/80">
             {isSignIn ? "Welcome back" : "Create your account"}
           </p>
         </div>
@@ -78,7 +80,7 @@ export default function Home() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+              className="w-full bg-transparent border-b border-white/40 px-2 py-3 text-white placeholder-white/70 focus:border-white focus:outline-none"
               required
             />
           </div>
@@ -89,7 +91,7 @@ export default function Home() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+              className="w-full bg-transparent border-b border-white/40 px-2 py-3 text-white placeholder-white/70 focus:border-white focus:outline-none"
               required
             />
           </div>
@@ -101,7 +103,7 @@ export default function Home() {
                 placeholder="Access Code"
                 value={accessCode}
                 onChange={(e) => setAccessCode(e.target.value)}
-                className="w-full p-4 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+                className="w-full bg-transparent border-b border-white/40 px-2 py-3 text-white placeholder-white/70 focus:border-white focus:outline-none"
                 required
               />
               <p className="text-xs text-gray-500 mt-2">Enter your invitation access code</p>
