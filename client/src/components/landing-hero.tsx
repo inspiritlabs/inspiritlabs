@@ -33,7 +33,7 @@ export default function LandingHero() {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-[60ch] mx-auto leading-relaxed">
             Create interactive, lifelike digital replicas of loved ones through advanced AI voice technology. 
             Upload voice samples, describe their personality, and engage in meaningful conversations that feel authentic.
           </p>

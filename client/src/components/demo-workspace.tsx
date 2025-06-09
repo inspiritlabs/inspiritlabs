@@ -861,7 +861,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
             {isGenerating && (
               <div className="text-center space-y-6 py-12">
                 <div className="galactic-spinner mx-auto" />
-                <h3 className="gradient-text text-3xl font-semibold">
+                <h3 className="gradient-text text-3xl font-semibold opacity-0 animate-[fadeIn_1.5s_ease_forwards,breathe_6s_ease-in-out_infinite]">
                   Generating Your AI Companion
                 </h3>
                 <p className="text-xl text-gray-300">
@@ -901,7 +901,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                     <span className="text-sm">
                       ⟳ Building personality model...
                     </span>
-                    <div className="w-5 h-5 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-5 h-5 border border-purple-400 border-t-transparent rounded-full animate-spin" />
                   </div>
                   <div className="flex items-center justify-between p-3 bg-black/20 rounded-lg opacity-50">
                     <span className="text-sm">
@@ -924,7 +924,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                     style={{
                       left: `${Math.random() * 70 + 15}%`,
                       top: `${Math.random() * 70 + 15}%`,
-                      animation: `float ${20 + Math.random() * 10}s ease-in-out infinite alternate`,
+                      animation: `drift ${20 + Math.random() * 10}s ease-in-out infinite alternate`,
                       animationDelay: `${Math.random() * 5}s`,
                     }}
                   >

@@ -128,7 +128,7 @@ export default function ImmersiveChat({ replica, user, initialMessages, initialM
           style={{
             left: `${Math.random() * 70 + 15}%`,
             top: `${Math.random() * 70 + 15}%`,
-            animation: `float ${20 + Math.random() * 10}s ease-in-out infinite alternate`,
+            animation: `drift ${20 + Math.random() * 10}s ease-in-out infinite alternate`,
             animationDelay: `${Math.random() * 5}s`,
           }}
         >

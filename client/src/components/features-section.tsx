@@ -4,7 +4,7 @@ export default function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 cosmic-glow">How It Works</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-[60ch] mx-auto">
             Our advanced AI technology combines voice synthesis with personality modeling to create authentic digital experiences.
           </p>
         </div>
