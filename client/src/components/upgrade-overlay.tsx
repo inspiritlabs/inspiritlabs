@@ -23,12 +23,12 @@ export default function UpgradeOverlay({ onClose }: UpgradeOverlayProps) {
   };
 
   return (
-    <div id="upgrade-overlay" className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
+    <div id="upgrade-overlay" className="fixed inset-0 flex items-center justify-center z-50" style={{background: 'radial-gradient(circle,#ff006e,#8338ec)'}}>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-6">
         
         {/* Starter Plan */}
         <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)]">
-          <h3 className="text-xl font-semibold mb-2 text-white">Starter – First Light</h3>
+          <h3 className="gradient-text text-xl font-semibold mb-2">Starter – First Light</h3>
           <p className="text-3xl font-bold mb-4 text-white">
             $24<span className="text-base font-normal">/mo</span>
           </p>
@@ -49,13 +49,13 @@ export default function UpgradeOverlay({ onClose }: UpgradeOverlayProps) {
         </div>
 
         {/* Pro Plan - Most Loved */}
-        <div className="plan-card bg-white/5 border border-orange-400/50 rounded-2xl p-6 flex flex-col relative transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)] ring-2 ring-orange-400/30">
+        <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col relative transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)] ring-4 ring-yellow-400 animate-pulse">
           <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
             <span className="bg-orange-400 text-black px-3 py-1 rounded-full text-xs font-bold">
               ★ Most Loved ★
             </span>
           </div>
-          <h3 className="text-xl font-semibold mb-2 text-white">Pro – Forever Within</h3>
+          <h3 className="gradient-text text-xl font-semibold mb-2">Pro – Forever Within</h3>
           <p className="text-3xl font-bold mb-4 text-white">
             $99<span className="text-base font-normal">/mo</span>
           </p>
@@ -79,7 +79,7 @@ export default function UpgradeOverlay({ onClose }: UpgradeOverlayProps) {
 
         {/* Elite Plan */}
         <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)]">
-          <h3 className="text-xl font-semibold mb-2 text-white">Elite – Legacy Vault</h3>
+          <h3 className="gradient-text text-xl font-semibold mb-2">Elite – Legacy Vault</h3>
           <p className="text-3xl font-bold mb-4 text-white">
             $279<span className="text-base font-normal">/mo</span>
           </p>
