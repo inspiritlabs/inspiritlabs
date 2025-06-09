@@ -63,7 +63,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative">
-      <h1 className="font-headline text-[72px] absolute -top-16 text-black drop-shadow-[0_0_2px_white]">
+      <h1 className="font-headline text-[72px] absolute -top-16 text-white drop-shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
         INSPIRI
       </h1>
       <div className="glass-card rounded-[32px] p-8 w-full max-w-[420px]">
