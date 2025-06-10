@@ -91,6 +91,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
   );
   const [photos, setPhotos] = useState<string[]>([]);
   const [consentChecked, setConsentChecked] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   // Upload state
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -104,6 +105,20 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
   const [generationTime, setGenerationTime] = useState(25);
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [generationComplete, setGenerationComplete] = useState(false);
+
+  const helperPhrases = [
+    "tuning voice",
+    "stitching memories",
+    "animating gestures",
+    "polishing details",
+  ];
+  const helperPhrase =
+    generationTime <= 17
+      ? helperPhrases[
+          Math.floor(Math.max(0, 25 - generationTime - 8) / 4) %
+            helperPhrases.length
+        ]
+      : "";
 
   // Chat state
   const [message, setMessage] = useState("");
@@ -223,6 +238,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
   const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    setIsDragOver(false);
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
@@ -234,6 +250,13 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!isDragOver) setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
   };
 
   // Validate file
@@ -512,22 +535,20 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
   };
 
   return (
-    <section id="demo-workspace" className="py-12 min-h-screen" ref={ref}>
+    <section
+      id="demo-workspace"
+      className="py-12 min-h-screen"
+      ref={ref}
+      style={{ fontFamily: 'Inter Regular', color: '#ffffffcc', lineHeight: '1.6' }}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold cosmic-glow">
-            Create Your Replica
-          </h1>
-          <button
-            onClick={onSignOut}
-            className="secondary-button px-4 py-2 rounded-lg text-white"
-          >
-            Sign Out
-          </button>
+          <h1 className="font-black text-[72px] text-black" style={{fontFamily:'Inter Black'}}>Create Your Replica</h1>
         </div>
 
         {/* Premium colorful box around the entire demo */}
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative max-w-6xl mx-auto rainbow-wrap">
+          <div className="absolute inset-0 pointer-events-none rainbow-bg" />
           {/* Colorful gradient border */}
           <div
             className="absolute inset-0 rounded-xl opacity-70"
@@ -587,9 +608,11 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                       Voice Sample Upload
                     </h3>
                     <div
-                      className="upload-zone rounded-lg p-8 text-center cursor-pointer"
+                      className={`upload-zone rounded-lg p-8 text-center cursor-pointer ${isDragOver ? "drag-over" : ""}`}
                       onDrop={handleFileDrop}
                       onDragOver={handleDragOver}
+                      onDragEnter={() => setIsDragOver(true)}
+                      onDragLeave={handleDragLeave}
                       onClick={() => fileInputRef.current?.click()}
                     >
                       <Upload className="mx-auto text-4xl text-gray-400 mb-4 w-12 h-12" />
@@ -837,7 +860,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                     <button
                       onClick={generateDemo}
                       disabled={!isFormValid()}
-                      className="w-full h-20 text-2xl font-bold primary-button rounded-full disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1 transition-all"
+                      className="primary-button text-2xl h-20 px-8 rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transition-transform duration-75"
                     >
                       <svg
                         className="w-6 h-6"
@@ -860,13 +883,11 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
             {/* Generation Progress */}
             {isGenerating && (
               <div className="text-center space-y-6 py-12">
-                <div className="galactic-spinner mx-auto" />
-                <h3 className="gradient-text text-3xl font-semibold opacity-0 animate-[fadeIn_1.5s_ease_forwards,breathe_6s_ease-in-out_infinite]">
-                  Generating Your AI Companion
+                <div className="swirl mx-auto" />
+                <h3 className="text-[20pt] font-semibold font-[\'SF Rounded\',sans-serif] text-[#FFF6E9] drop-shadow-[0_0_6px_#FFF6E960]">
+                  Creating your replica…
                 </h3>
-                <p className="text-xl text-gray-300">
-                  Processing voice patterns and personality traits...
-                </p>
+                <p className="text-xl text-gray-300">{helperPhrase}</p>
 
                 <div className="max-w-md mx-auto">
                   <div className="w-full bg-gray-700 rounded-full h-3 mb-4">
@@ -915,16 +936,18 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
 
             {/* Chat Interface */}
             {generationComplete && (
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-cyan-900/20 backdrop-blur-3xl">
+              <div className="relative rounded-3xl overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none rainbow-bg opacity-40 blur-[40px]" />
                 {/* Floating Photos Background */}
                 {photos.map((photo, index) => (
                   <div
                     key={index}
-                    className="absolute pointer-events-none transition-opacity duration-700"
+                    className="absolute pointer-events-none opacity-0 animate-[fadeIn_0.4s_ease_forwards]"
                     style={{
                       left: `${Math.random() * 70 + 15}%`,
                       top: `${Math.random() * 70 + 15}%`,
-                      animation: `drift ${20 + Math.random() * 10}s ease-in-out infinite alternate`,
+                      transform: `rotate(${Math.random() * 8 - 4}deg)`,
+                      animation: `drift ${30}s alternate infinite`,
                       animationDelay: `${Math.random() * 5}s`,
                     }}
                   >
@@ -948,7 +971,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                 ))}
 
                 <div className="absolute top-4 right-4 z-30">
-                  <span className="gradient-text px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-sm">
+                  <span className="counter-chip px-3 py-1 rounded-full text-white text-sm">
                     {messagesRemaining} / 5
                   </span>
                 </div>
@@ -973,14 +996,16 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                           <div
                             className={`relative rounded-2xl px-5 py-3 transition-all duration-300 hover:scale-[1.02] ${
                               message.role === "user"
-                                ? "bg-white/5 backdrop-blur-md ml-auto"
-                                : "bg-black/10 backdrop-blur-md"
+                                ? "bg-white/5 backdrop-blur-[14px] ml-auto"
+                                : "bg-white/5 backdrop-blur-[14px]"
                             }`}
                             style={{
                               boxShadow:
                                 message.role === "user"
-                                  ? "0 8px 32px rgba(255, 255, 255, 0.1)"
-                                  : "0 8px 32px rgba(0, 0, 0, 0.2)",
+                                  ? "inset 0 0 8px #FEEFD8,0 6px 10px rgba(0,0,0,0.2)"
+                                  : "0 6px 10px rgba(0,0,0,0.12)",
+                              backgroundColor:
+                                message.role === "assistant" ? "#E9F3FF22" : undefined,
                             }}
                           >
                             <p className="text-white leading-relaxed font-medium">
@@ -1046,7 +1071,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                             isProcessing ||
                             messagesRemaining <= 0
                           }
-                          className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-white hover:from-purple-600 hover:to-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="sun-disk flex items-center justify-center w-11 h-11 transition active:translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <Send className="w-5 h-5" />
                         </button>
@@ -1065,7 +1090,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
         {showUpgradeOverlay && (
           <div
             id="upgrade-overlay"
-            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50"
+            className="fixed inset-0 flex items-center justify-center z-50 upgrade-bg"
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-6">
               <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col">
@@ -1090,7 +1115,7 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
                   Keep It Simple
                 </button>
               </div>
-              <div className="plan-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col relative ring-4 ring-purple-500/50 animate-pulse">
+              <div className="plan-card pro-card bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col relative">
                 <span className="absolute -top-3 right-3 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded shadow">
                   Most Loved
                 </span>
@@ -1160,14 +1185,16 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
       </div>
       <style>{`
         .plan-card {
-          transition:
-            transform 0.3s,
-            box-shadow 0.3s;
-          background: rgba(255,255,255,0.06);
+          transition: transform 0.3s, box-shadow 0.3s;
+          background: rgba(255,255,255,0.05);
           backdrop-filter: blur(14px);
-          border: 2px solid transparent;
-          border-image: linear-gradient(45deg,#ff006e,#8338ec,#3a86ff,#06ffa5,#ffbe0b) 1;
-          border-radius: 1rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+          border: 4px solid transparent;
+          mask: padding-box, linear-gradient(#fff,#fff) !important;
+          mask-composite: exclude;
+          -webkit-mask-composite: destination-out;
+          border-image: linear-gradient(45deg,#FFF6E9,#E9F3FF,#F0E9FD) 1;
         }
         .plan-card:hover {
           transform: translateY(-6px);
@@ -1179,6 +1206,98 @@ export default function DemoWorkspace({ user, onSignOut }: DemoWorkspaceProps) {
           padding: 0.75rem 1.5rem;
           color: #fff;
           font-weight: 600;
+        }
+        .glass-card,
+        .glass-bar {
+          background: rgba(255,255,255,0.05);
+          backdrop-filter: blur(14px);
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+        .rainbow-bg {
+          background: radial-gradient(circle at 50% 50%, #FFF6E9, #F0E9FD);
+          opacity: 0.07;
+          filter: blur(64px);
+          animation: dawnShimmer 12s linear infinite;
+        }
+        .rainbow-wrap {
+          position: relative;
+          border-radius: 12px;
+        }
+        .rainbow-wrap::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 2px;
+          border-radius: inherit;
+          background: linear-gradient(45deg,#FFF6E9,#F0E9FD);
+          -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+          pointer-events: none;
+        }
+        .upgrade-bg {
+          background: radial-gradient(circle at center, #FFF6E9, #F0E9FD);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .rainbow-bg { animation: none; }
+        }
+        @keyframes dawnShimmer {
+          0% { filter: hue-rotate(0deg) blur(64px); }
+          100% { filter: hue-rotate(8deg) blur(64px); }
+        }
+        .swirl {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: conic-gradient(from 0deg, #FFF6E9, #FEEFD8, #F1F9E8, #E7FAF7, #E9F3FF, #F0E9FD, #FFF6E9);
+          animation: swirlSpin 10s linear infinite;
+        }
+        @keyframes swirlSpin {
+          to { transform: rotate(360deg); }
+        }
+        .trait-slider {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 0.5rem;
+          border-radius: 9999px;
+          background: radial-gradient(circle at center, #FFF6E9, #F0E9FD);
+        }
+        .trait-slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 1rem;
+          width: 1rem;
+          border-radius: 9999px;
+          background: #FEEFD8;
+          transition: transform 0.1s;
+        }
+        .trait-slider::-webkit-slider-thumb:hover {
+          transform: scale(1.15);
+        }
+        .upload-zone {
+          border: 2px dashed rgba(255,255,255,0.3);
+          transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .upload-zone:hover { border-color: transparent; }
+        .upload-zone.drag-over { box-shadow: 0 0 50px rgba(255,246,233,0.3); }
+        .sun-disk {
+          background: radial-gradient(circle at 30% 30%, #FFF6E9, #FEEFD8 70%, #F0E9FD);
+          color: #000;
+        }
+        .counter-chip {
+          background: linear-gradient(90deg,#FFF6E9,#F0E9FD);
+        }
+        .pro-card {
+          box-shadow: 0 0 25px currentColor;
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0%,100% { box-shadow: 0 0 25px currentColor; }
+          50% { box-shadow: 0 0 5px currentColor; }
+        }
+        @keyframes drift {
+          from { transform: translateY(-10px); }
+          to { transform: translateY(10px); }
         }
       `}</style>
     </section>
